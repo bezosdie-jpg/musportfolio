@@ -1,11 +1,11 @@
 [
   {
-    "id": "track-1",
+    "id": "catwalk",
     "type": "audio",
-    "title": "Ambient Dreams",
-    "description": "A calm ambient piece with soft pads and gentle melodies.",
-    "file": "/media/track-1.mp3",
-    "duration": "3:42"
+    "title": "catwalk - fashion",
+    "description": "музыка к показу бренда RISHI. Московская неделя мод.",
+    "file": "C:/musportfolio/public/media/catwalk - fashion.mp3",
+    "duration": "15:33"
   },
   {
     "id": "track-2",
