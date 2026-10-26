@@ -33,11 +33,14 @@ const { work } = Astro.props;
 
 <style>
   .work-card {
+    max-width: 100%;
+    width: 100%;
     background: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     padding: 1.5rem;
     transition: box-shadow 0.2s, border-color 0.2s;
+    text-align: center;
   }
   .work-card:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -49,8 +52,8 @@ const { work } = Astro.props;
   }
   .work-header {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
     margin-bottom: 0.5rem;
   }
@@ -67,12 +70,16 @@ const { work } = Astro.props;
     white-space: nowrap;
   }
   .work-description {
-    margin: 0 0 1rem;
+    margin: 0 auto 1rem;
     color: #444;
     line-height: 1.6;
+    text-align: center;
+    max-width: 100%;
   }
   .work-player {
     width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
   }
   @media (max-width: 600px) {
     .work-card { padding: 1rem; }

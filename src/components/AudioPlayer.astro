@@ -59,61 +59,60 @@ const { src, title } = Astro.props;
     border-radius: 8px;
     font-family: inherit;
     font-size: 0.875rem;
+    justify-content: center;
   }
   .audio-controls {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     width: 100%;
+    justify-content: center;
   }
   .play-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border: none;
     background: #000;
     color: #fff;
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.2s;
+    padding: 0;
+    line-height: 0;
   }
   .play-btn:hover { background: #333; }
   .play-btn:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
-  .icon-play { display: block; width: 20px; height: 20px; fill: currentColor; }
-  .icon-pause { display: none; width: 20px; height: 20px; fill: currentColor; }
+  .icon-play { display: block; width: 14px; height: 14px; fill: currentColor; }
+  .icon-pause { display: none; width: 14px; height: 14px; fill: currentColor; }
   .play-btn[aria-pressed="true"] .icon-play { display: none; }
   .play-btn[aria-pressed="true"] .icon-pause { display: block; }
   .time-display {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-variant-numeric: tabular-nums;
-    color: #666;
-    min-width: 100px;
+    display: none;
   }
   .seek-slider {
     flex: 1;
-    max-width: 400px;
-    height: 6px;
+    max-width: 300px;
+    height: 3px;
     -webkit-appearance: none;
     appearance: none;
     background: #ddd;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
   }
   .seek-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     background: #000;
     border-radius: 50%;
     cursor: pointer;
   }
   .seek-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     background: #000;
     border: none;
     border-radius: 50%;
@@ -121,24 +120,24 @@ const { src, title } = Astro.props;
   }
   .volume-slider {
     width: 80px;
-    height: 6px;
+    height: 3px;
     -webkit-appearance: none;
     appearance: none;
     background: #ddd;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
   }
   .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     background: #000;
     border-radius: 50%;
     cursor: pointer;
   }
   .volume-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     background: #000;
     border: none;
     border-radius: 50%;
