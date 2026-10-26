@@ -1,0 +1,55 @@
+<header class="header" role="banner">
+  <nav class="header-nav" aria-label="Main navigation">
+    <a href="/" class="logo" aria-label="Portfolio Home">Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="#works">Works</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 0;
+  }
+  .header-nav {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+    text-decoration: none;
+  }
+  .logo:focus-visible { outline: 2px solid #000; outline-offset: 4px; border-radius: 4px; }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    color: #444;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #000; }
+  .nav-links a:focus-visible { outline: 2px solid #000; outline-offset: 4px; border-radius: 4px; }
+  @media (max-width: 600px) {
+    .header-nav { padding: 0 1rem; }
+    .nav-links { gap: 1.25rem; }
+  }
+</style>

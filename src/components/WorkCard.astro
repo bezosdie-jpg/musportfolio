@@ -1,0 +1,81 @@
+---
+import AudioPlayer from './AudioPlayer.astro';
+import VideoPlayer from './VideoPlayer.astro';
+
+interface Props {
+  work: {
+    id: string;
+    type: 'audio' | 'video';
+    title: string;
+    description: string;
+    file: string;
+    poster?: string;
+    duration?: string;
+  };
+}
+const { work } = Astro.props;
+---
+<article class="work-card" data-id={work.id}>
+  <header class="work-header">
+    <h2 class="work-title">{work.title}</h2>
+    {work.duration && <span class="work-duration">{work.duration}</span>}
+  </header>
+  <p class="work-description">{work.description}</p>
+  <div class="work-player">
+    {work.type === 'audio' && (
+      <AudioPlayer src={work.file} title={work.title} />
+    )}
+    {work.type === 'video' && (
+      <VideoPlayer src={work.file} title={work.title} poster={work.poster} />
+    )}
+  </div>
+</article>
+
+<style>
+  .work-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .work-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-color: #ccc;
+  }
+  .work-card:focus-within {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }
+  .work-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .work-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111;
+  }
+  .work-duration {
+    font-size: 0.875rem;
+    color: #888;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .work-description {
+    margin: 0 0 1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  .work-player {
+    width: 100%;
+  }
+  @media (max-width: 600px) {
+    .work-card { padding: 1rem; }
+    .work-title { font-size: 1rem; }
+  }
+</style>

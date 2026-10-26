@@ -1,0 +1,291 @@
+---
+interface Props {
+  src: string;
+  title: string;
+  poster?: string;
+}
+const { src, title, poster } = Astro.props;
+---
+<div class="video-player" data-src={src}>
+  <video
+    id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
+    src={src}
+    poster={poster}
+    preload="metadata"
+    playsinline
+    aria-label={title}
+  ></video>
+  <div class="video-controls">
+    <button
+      class="play-btn"
+      aria-label="Play"
+      aria-pressed="false"
+      data-action="play"
+    >
+      <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <div class="time-display">
+      <span class="current-time">0:00</span>
+      <span class="separator" aria-hidden="true">/</span>
+      <span class="duration">0:00</span>
+    </div>
+    <input
+      type="range"
+      class="seek-slider"
+      min="0"
+      max="100"
+      value="0"
+      aria-label="Seek"
+      data-action="seek"
+    >
+    <input
+      type="range"
+      class="volume-slider"
+      min="0"
+      max="1"
+      step="0.1"
+      value="1"
+      aria-label="Volume"
+      data-action="volume"
+    >
+    <button
+      class="fullscreen-btn"
+      aria-label="Fullscreen"
+      data-action="fullscreen"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .video-player {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: inherit;
+    font-size: 0.875rem;
+  }
+  .video-player video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: #fff;
+  }
+  .play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255,255,255,0.9);
+    color: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .play-btn:hover { background: #fff; }
+  .play-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .icon-play { display: block; width: 20px; height: 20px; fill: currentColor; }
+  .icon-pause { display: none; width: 20px; height: 20px; fill: currentColor; }
+  .play-btn[aria-pressed="true"] .icon-play { display: none; }
+  .play-btn[aria-pressed="true"] .icon-pause { display: block; }
+  .time-display {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-variant-numeric: tabular-nums;
+    min-width: 100px;
+  }
+  .seek-slider {
+    flex: 1;
+    max-width: 400px;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,0.5);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .seek-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .seek-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .volume-slider {
+    width: 80px;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,0.5);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .fullscreen-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255,255,255,0.9);
+    color: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .fullscreen-btn:hover { background: #fff; }
+  .fullscreen-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .fullscreen-btn svg { width: 20px; height: 20px; fill: currentColor; }
+  @media (prefers-reduced-motion: reduce) {
+    .play-btn, .fullscreen-btn, .seek-slider::-webkit-slider-thumb, .volume-slider::-webkit-slider-thumb {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const players = document.querySelectorAll('.video-player');
+    players.forEach(player => {
+      const video = player.querySelector('video');
+      const playBtn = player.querySelector('.play-btn');
+      const seekSlider = player.querySelector('.seek-slider');
+      const volumeSlider = player.querySelector('.volume-slider');
+      const currentTimeEl = player.querySelector('.current-time');
+      const durationEl = player.querySelector('.duration');
+      const fullscreenBtn = player.querySelector('.fullscreen-btn');
+
+      const formatTime = (seconds: number) => {
+        if (isNaN(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
+      };
+
+      video.addEventListener('loadedmetadata', () => {
+        durationEl.textContent = formatTime(video.duration);
+        seekSlider.max = String(video.duration);
+      });
+
+      video.addEventListener('timeupdate', () => {
+        seekSlider.value = String(video.currentTime);
+        currentTimeEl.textContent = formatTime(video.currentTime);
+      });
+
+      playBtn.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+          playBtn.setAttribute('aria-pressed', 'true');
+          playBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          video.pause();
+          playBtn.setAttribute('aria-pressed', 'false');
+          playBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      video.addEventListener('ended', () => {
+        playBtn.setAttribute('aria-pressed', 'false');
+        playBtn.setAttribute('aria-label', 'Play');
+        seekSlider.value = '0';
+      });
+
+      seekSlider.addEventListener('input', () => {
+        video.currentTime = Number(seekSlider.value);
+      });
+
+      volumeSlider.addEventListener('input', () => {
+        video.volume = Number(volumeSlider.value);
+      });
+
+      fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          player.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      });
+
+      // Keyboard support
+      player.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.target === seekSlider || e.target === volumeSlider) return;
+        switch (e.key) {
+          case ' ':
+          case 'k':
+            e.preventDefault();
+            playBtn.click();
+            break;
+          case 'ArrowLeft':
+            e.preventDefault();
+            video.currentTime = Math.max(0, video.currentTime - 5);
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            video.currentTime = Math.min(video.duration, video.currentTime + 5);
+            break;
+          case 'ArrowUp':
+            e.preventDefault();
+            video.volume = Math.min(1, video.volume + 0.1);
+            volumeSlider.value = String(video.volume);
+            break;
+          case 'ArrowDown':
+            e.preventDefault();
+            video.volume = Math.max(0, video.volume - 0.1);
+            volumeSlider.value = String(video.volume);
+            break;
+          case 'm':
+            video.muted = !video.muted;
+            break;
+          case 'f':
+            fullscreenBtn.click();
+            break;
+        }
+      });
+    });
+  });
+</script>
