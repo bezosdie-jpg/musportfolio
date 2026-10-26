@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
 
-export default defineConfig({
-  site: 'https://username.github.io',
+
+  export default defineConfig({
+  site: 'https://bezosdie-jpg.github.io',
   base: '/musportfolio',
-  output: 'static',
+output: 'static',
   trailingSlash: 'always',
 });
+
