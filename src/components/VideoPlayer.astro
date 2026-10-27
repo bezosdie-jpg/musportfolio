@@ -30,25 +30,6 @@ const { src, title, poster } = Astro.props;
       <span class="separator" aria-hidden="true">/</span>
       <span class="duration">0:00</span>
     </div>
-    <input
-      type="range"
-      class="seek-slider"
-      min="0"
-      max="100"
-      value="0"
-      aria-label="Seek"
-      data-action="seek"
-    >
-    <input
-      type="range"
-      class="volume-slider"
-      min="0"
-      max="1"
-      step="0.1"
-      value="1"
-      aria-label="Volume"
-      data-action="volume"
-    >
     <button
       class="fullscreen-btn"
       aria-label="Fullscreen"
@@ -114,57 +95,6 @@ const { src, title, poster } = Astro.props;
     font-variant-numeric: tabular-nums;
     min-width: 100px;
   }
-  .seek-slider {
-    flex: 1;
-    max-width: 400px;
-    height: 6px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: rgba(255,255,255,0.5);
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  .seek-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    background: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .seek-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .volume-slider {
-    width: 80px;
-    height: 6px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: rgba(255,255,255,0.5);
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  .volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .volume-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-  }
   .fullscreen-btn {
     display: flex;
     align-items: center;
@@ -182,7 +112,7 @@ const { src, title, poster } = Astro.props;
   .fullscreen-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   .fullscreen-btn svg { width: 20px; height: 20px; fill: currentColor; }
   @media (prefers-reduced-motion: reduce) {
-    .play-btn, .fullscreen-btn, .seek-slider::-webkit-slider-thumb, .volume-slider::-webkit-slider-thumb {
+    .play-btn, .fullscreen-btn {
       transition: none;
     }
   }
@@ -194,8 +124,6 @@ const { src, title, poster } = Astro.props;
     players.forEach(player => {
       const video = player.querySelector('video');
       const playBtn = player.querySelector('.play-btn');
-      const seekSlider = player.querySelector('.seek-slider');
-      const volumeSlider = player.querySelector('.volume-slider');
       const currentTimeEl = player.querySelector('.current-time');
       const durationEl = player.querySelector('.duration');
       const fullscreenBtn = player.querySelector('.fullscreen-btn');
@@ -209,11 +137,9 @@ const { src, title, poster } = Astro.props;
 
       video.addEventListener('loadedmetadata', () => {
         durationEl.textContent = formatTime(video.duration);
-        seekSlider.max = String(video.duration);
       });
 
       video.addEventListener('timeupdate', () => {
-        seekSlider.value = String(video.currentTime);
         currentTimeEl.textContent = formatTime(video.currentTime);
       });
 
@@ -232,15 +158,6 @@ const { src, title, poster } = Astro.props;
       video.addEventListener('ended', () => {
         playBtn.setAttribute('aria-pressed', 'false');
         playBtn.setAttribute('aria-label', 'Play');
-        seekSlider.value = '0';
-      });
-
-      seekSlider.addEventListener('input', () => {
-        video.currentTime = Number(seekSlider.value);
-      });
-
-      volumeSlider.addEventListener('input', () => {
-        video.volume = Number(volumeSlider.value);
       });
 
       fullscreenBtn.addEventListener('click', () => {
@@ -253,7 +170,6 @@ const { src, title, poster } = Astro.props;
 
       // Keyboard support
       player.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.target === seekSlider || e.target === volumeSlider) return;
         switch (e.key) {
           case ' ':
           case 'k':
@@ -271,12 +187,10 @@ const { src, title, poster } = Astro.props;
           case 'ArrowUp':
             e.preventDefault();
             video.volume = Math.min(1, video.volume + 0.1);
-            volumeSlider.value = String(video.volume);
             break;
           case 'ArrowDown':
             e.preventDefault();
             video.volume = Math.max(0, video.volume - 0.1);
-            volumeSlider.value = String(video.volume);
             break;
           case 'm':
             video.muted = !video.muted;

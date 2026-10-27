@@ -36,16 +36,19 @@ const { src, title } = Astro.props;
       aria-label="Seek"
       data-action="seek"
     >
-    <input
-      type="range"
-      class="volume-slider"
-      min="0"
-      max="1"
-      step="0.1"
-      value="1"
-      aria-label="Volume"
-      data-action="volume"
-    >
+    <div class="volume-wrapper">
+      <input
+        type="range"
+        class="volume-slider"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        aria-label="Volume"
+        data-action="volume"
+        orient="vertical"
+      >
+    </div>
   </div>
 </div>
 
@@ -119,13 +122,18 @@ const { src, title } = Astro.props;
     border-radius: 50%;
     cursor: pointer;
   }
+  .volume-wrapper {
+    display: flex;
+    align-items: center;
+    height: 80px;
+  }
   .volume-slider {
-    width: 80px;
-    height: 6px;
+    width: 4px;
+    height: 80px;
     -webkit-appearance: none;
     appearance: none;
     background: #ddd;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
   }
   .volume-slider::-webkit-slider-thumb {
@@ -135,6 +143,7 @@ const { src, title } = Astro.props;
     background: #000;
     border-radius: 50%;
     cursor: pointer;
+    margin-top: -5px;
   }
   .volume-slider::-moz-range-thumb {
     width: 14px;
