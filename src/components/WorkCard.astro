@@ -1,16 +1,19 @@
 ---
 import AudioPlayer from './AudioPlayer.astro';
 import VideoPlayer from './VideoPlayer.astro';
+import EmbedPlayer from './EmbedPlayer.astro';
+import GoogleDriveVideoPlayer from './GoogleDriveVideoPlayer.astro';
 
 interface Props {
   work: {
     id: string;
-    type: 'audio' | 'video';
+    type: 'audio' | 'video' | 'embed';
     title: string;
     description: string;
-    file: string;
+    file?: string;
     poster?: string;
     duration?: string;
+    embedUrl?: string;
   };
 }
 const { work } = Astro.props;
@@ -22,11 +25,17 @@ const { work } = Astro.props;
   </header>
   <p class="work-description">{work.description}</p>
   <div class="work-player">
-    {work.type === 'audio' && (
+    {work.type === 'audio' && work.file && (
       <AudioPlayer src={work.file} title={work.title} />
     )}
-    {work.type === 'video' && (
+    {work.type === 'video' && work.file && (
       <VideoPlayer src={work.file} title={work.title} poster={work.poster} />
+    )}
+    {work.type === 'gdrive' && work.file && (
+      <GoogleDriveVideoPlayer src={work.file} title={work.title} poster={work.poster} />
+    )}
+    {work.type === 'embed' && work.embedUrl && (
+      <EmbedPlayer embedUrl={work.embedUrl} title={work.title} poster={work.poster} />
     )}
   </div>
 </article>

@@ -1,0 +1,274 @@
+---
+interface Props {
+  src: string;
+  title: string;
+}
+const { src, title } = Astro.props;
+---
+<div class="audio-player" data-src={src}>
+  <audio
+    id={`audio-${title.replace(/\s+/g, '-').toLowerCase()}`}
+    src={src}
+    preload="metadata"
+    aria-label={title}
+  ></audio>
+  <div class="audio-controls">
+    <button
+      class="play-btn"
+      aria-label="Play"
+      aria-pressed="false"
+      data-action="play"
+    >
+      <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <div class="time-display">
+      <span class="current-time">0:00</span>
+      <span class="separator" aria-hidden="true">/</span>
+      <span class="duration">0:00</span>
+    </div>
+    <div class="seek-wrapper" data-action="seek">
+      <div class="seek-track" aria-hidden="true"></div>
+      <div class="seek-progress" style="width: 0%"></div>
+    </div>
+    <div class="volume-wrapper">
+      <input
+        type="range"
+        class="volume-slider"
+        min="0"
+        max="1"
+        step="0.1"
+        value="1"
+        aria-label="Volume"
+        data-action="volume"
+        orient="vertical"
+      >
+    </div>
+  </div>
+</div>
+
+<style>
+  .audio-player {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.875rem;
+  }
+  .audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .play-btn:hover { background: #333; }
+  .play-btn:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+  .icon-play { display: block; width: 20px; height: 20px; fill: currentColor; }
+  .icon-pause { display: none; width: 20px; height: 20px; fill: currentColor; }
+  .play-btn[aria-pressed="true"] .icon-play { display: none; }
+  .play-btn[aria-pressed="true"] .icon-pause { display: block; }
+  .time-display {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-variant-numeric: tabular-nums;
+    color: #666;
+    min-width: 100px;
+  }
+  .seek-slider {
+    flex: 1;
+    max-width: 400px;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .seek-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #000;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .seek-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .volume-wrapper {
+    display: flex;
+    align-items: center;
+    height: 80px;
+  }
+  .volume-slider {
+    width: 4px;
+    height: 80px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ddd;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .seek-wrapper {
+    flex: 1;
+    max-width: 400px;
+    height: 4px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 2px;
+    background: transparent;
+  }
+  .seek-track {
+    width: 100%;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+  }
+  .seek-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: #000;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: width 0.1s linear;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .play-btn, .seek-slider::-webkit-slider-thumb, .volume-slider::-webkit-slider-thumb, .seek-progress {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const players = document.querySelectorAll('.audio-player');
+    players.forEach(player => {
+      const audio = player.querySelector('audio');
+      const playBtn = player.querySelector('.play-btn');
+      const seekWrapper = player.querySelector('.seek-wrapper');
+      const seekProgress = player.querySelector('.seek-progress');
+      const volumeSlider = player.querySelector('.volume-slider');
+      const currentTimeEl = player.querySelector('.current-time');
+      const durationEl = player.querySelector('.duration');
+
+      const formatTime = (seconds: number) => {
+        if (isNaN(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
+      };
+
+      audio.addEventListener('loadedmetadata', () => {
+        durationEl.textContent = formatTime(audio.duration);
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        seekProgress.style.width = `${percent}%`;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+      });
+
+      playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          playBtn.setAttribute('aria-pressed', 'true');
+          playBtn.setAttribute('aria-label', 'Pause');
+        } else {
+          audio.pause();
+          playBtn.setAttribute('aria-pressed', 'false');
+          playBtn.setAttribute('aria-label', 'Play');
+        }
+      });
+
+      audio.addEventListener('ended', () => {
+        playBtn.setAttribute('aria-pressed', 'false');
+        playBtn.setAttribute('aria-label', 'Play');
+        seekProgress.style.width = '0%';
+      });
+
+      seekWrapper.addEventListener('click', (e) => {
+        const rect = seekWrapper.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = percent * audio.duration;
+      });
+
+      volumeSlider.addEventListener('input', () => {
+        audio.volume = Number(volumeSlider.value);
+      });
+
+      // Keyboard support
+      player.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.target === volumeSlider) return;
+        switch (e.key) {
+          case ' ':
+          case 'k':
+            e.preventDefault();
+            playBtn.click();
+            break;
+          case 'ArrowLeft':
+            e.preventDefault();
+            audio.currentTime = Math.max(0, audio.currentTime - 5);
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+            break;
+          case 'ArrowUp':
+            e.preventDefault();
+            audio.volume = Math.min(1, audio.volume + 0.1);
+            volumeSlider.value = String(audio.volume);
+            break;
+          case 'ArrowDown':
+            e.preventDefault();
+            audio.volume = Math.max(0, audio.volume - 0.1);
+            volumeSlider.value = String(audio.volume);
+            break;
+          case 'm':
+            audio.muted = !audio.muted;
+            break;
+        }
+      });
+    });
+  });
+</script>

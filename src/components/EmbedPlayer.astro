@@ -1,0 +1,92 @@
+---
+interface Props {
+  embedUrl: string;
+  title: string;
+  poster?: string;
+}
+const { embedUrl, title, poster } = Astro.props;
+---
+<div class="embed-player" data-embed-url={embedUrl}>
+  <div class="embed-preview" role="button" tabindex="0" aria-label={`Play ${title}`}>
+    {poster && <img src={poster} alt="" class="embed-poster" loading="lazy" />}
+    <div class="embed-overlay">
+      <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  </div>
+  <div class="embed-frame-wrapper" hidden>
+    <iframe
+      class="embed-iframe"
+      src={embedUrl}
+      title={title}
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  <style>
+    .embed-player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+    .embed-preview {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    .embed-poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .embed-preview:hover .embed-poster {
+      transform: scale(1.02);
+    }
+    .embed-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.4);
+      transition: background 0.2s;
+    }
+    .embed-preview:hover .embed-overlay {
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .play-icon {
+      width: 72px;
+      height: 72px;
+      fill: #fff;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      transition: transform 0.2s;
+    }
+    .embed-preview:hover .play-icon {
+      transform: scale(1.1);
+    }
+    .embed-preview:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: -2px;
+    }
+    .embed-frame-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .embed-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+
+  <script src="/embed-player.js"></script>

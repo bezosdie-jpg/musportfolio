@@ -27,15 +27,10 @@ const { src, title } = Astro.props;
       <span class="separator" aria-hidden="true">/</span>
       <span class="duration">0:00</span>
     </div>
-    <input
-      type="range"
-      class="seek-slider"
-      min="0"
-      max="100"
-      value="0"
-      aria-label="Seek"
-      data-action="seek"
-    >
+    <div class="seek-wrapper" data-action="seek">
+      <div class="seek-track" aria-hidden="true"></div>
+      <div class="seek-progress" style="width: 0%"></div>
+    </div>
     <div class="volume-wrapper">
       <input
         type="range"
@@ -153,8 +148,33 @@ const { src, title } = Astro.props;
     border-radius: 50%;
     cursor: pointer;
   }
+  .seek-wrapper {
+    flex: 1;
+    max-width: 400px;
+    height: 4px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 2px;
+    background: transparent;
+  }
+  .seek-track {
+    width: 100%;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+  }
+  .seek-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: #000;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: width 0.1s linear;
+  }
   @media (prefers-reduced-motion: reduce) {
-    .play-btn, .seek-slider::-webkit-slider-thumb, .volume-slider::-webkit-slider-thumb {
+    .play-btn, .seek-slider::-webkit-slider-thumb, .volume-slider::-webkit-slider-thumb, .seek-progress {
       transition: none;
     }
   }
@@ -166,7 +186,8 @@ const { src, title } = Astro.props;
     players.forEach(player => {
       const audio = player.querySelector('audio');
       const playBtn = player.querySelector('.play-btn');
-      const seekSlider = player.querySelector('.seek-slider');
+      const seekWrapper = player.querySelector('.seek-wrapper');
+      const seekProgress = player.querySelector('.seek-progress');
       const volumeSlider = player.querySelector('.volume-slider');
       const currentTimeEl = player.querySelector('.current-time');
       const durationEl = player.querySelector('.duration');
@@ -180,11 +201,11 @@ const { src, title } = Astro.props;
 
       audio.addEventListener('loadedmetadata', () => {
         durationEl.textContent = formatTime(audio.duration);
-        seekSlider.max = String(audio.duration);
       });
 
       audio.addEventListener('timeupdate', () => {
-        seekSlider.value = String(audio.currentTime);
+        const percent = (audio.currentTime / audio.duration) * 100;
+        seekProgress.style.width = `${percent}%`;
         currentTimeEl.textContent = formatTime(audio.currentTime);
       });
 
@@ -203,11 +224,13 @@ const { src, title } = Astro.props;
       audio.addEventListener('ended', () => {
         playBtn.setAttribute('aria-pressed', 'false');
         playBtn.setAttribute('aria-label', 'Play');
-        seekSlider.value = '0';
+        seekProgress.style.width = '0%';
       });
 
-      seekSlider.addEventListener('input', () => {
-        audio.currentTime = Number(seekSlider.value);
+      seekWrapper.addEventListener('click', (e) => {
+        const rect = seekWrapper.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = percent * audio.duration;
       });
 
       volumeSlider.addEventListener('input', () => {
@@ -216,7 +239,7 @@ const { src, title } = Astro.props;
 
       // Keyboard support
       player.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.target === seekSlider || e.target === volumeSlider) return;
+        if (e.target === volumeSlider) return;
         switch (e.key) {
           case ' ':
           case 'k':
