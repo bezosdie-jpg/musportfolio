@@ -18,7 +18,7 @@
   {
     "id": "audio-3",
     "type": "audio",
-    "title": "LIVE1",
+    "title": "live1",
     "description": "полный цикл лайв: расстановка, контроль, запись, сведение",
     "file": "media/LIVE1.mp3",
     "duration": "5:20"
@@ -34,7 +34,7 @@
   {
     "id": "audio-5",
     "type": "audio",
-    "title": "Альбомы",
+    "title": "альбомы",
     "description": "микс бэдрум записи, отличный трек",
     "file": "media/Альбомы.mp3",
     "duration": "6:45"
