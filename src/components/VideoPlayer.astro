@@ -5,36 +5,14 @@ interface Props {
   poster?: string;
 }
 const { src, title, poster } = Astro.props;
-
-function extractDriveFileId(url: string): string | null {
-  const patterns = [
-    /\/file\/d\/([a-zA-Z0-9_-]+)/,
-    /\/uc\?export=download&id=([a-zA-Z0-9_-]+)/,
-    /id=([a-zA-Z0-9_-]+)/,
-    /^([a-zA-Z0-9_-]{25,})$/
-  ];
-
-  for (const pattern of patterns) {
-    const match = url.match(pattern);
-    if (match) return match[1];
-  }
-  return null;
-}
-
-const fileId = extractDriveFileId(src);
-const videoSrc = fileId
-  ? `https://drive.google.com/uc?export=download&id=${fileId}`
-  : src;
 ---
-
 <div class="video-player" data-src={src}>
   <video
     id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
-    src={videoSrc}
+    src={src}
     poster={poster}
     preload="metadata"
     playsinline
-    crossorigin="anonymous"
     aria-label={title}
   ></video>
   <div class="video-controls">
@@ -51,23 +29,6 @@ const videoSrc = fileId
       <span class="current-time">0:00</span>
       <span class="separator" aria-hidden="true">/</span>
       <span class="duration">0:00</span>
-    </div>
-    <div class="seek-wrapper" data-action="seek">
-      <div class="seek-track" aria-hidden="true"></div>
-      <div class="seek-progress" style="width: 0%"></div>
-    </div>
-    <div class="volume-wrapper">
-      <input
-        type="range"
-        class="volume-slider"
-        min="0"
-        max="1"
-        step="0.1"
-        value="1"
-        aria-label="Volume"
-        data-action="volume"
-        orient="vertical"
-      >
     </div>
     <button
       class="fullscreen-btn"
@@ -134,62 +95,6 @@ const videoSrc = fileId
     font-variant-numeric: tabular-nums;
     min-width: 100px;
   }
-  .seek-wrapper {
-    flex: 1;
-    max-width: 400px;
-    height: 4px;
-    position: relative;
-    cursor: pointer;
-    border-radius: 2px;
-    background: transparent;
-  }
-  .seek-track {
-    width: 100%;
-    height: 4px;
-    background: rgba(255,255,255,0.5);
-    border-radius: 2px;
-  }
-  .seek-progress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: #fff;
-    border-radius: 2px;
-    pointer-events: none;
-    transition: width 0.1s linear;
-  }
-  .volume-wrapper {
-    display: flex;
-    align-items: center;
-    height: 80px;
-  }
-  .volume-slider {
-    width: 4px;
-    height: 80px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: rgba(255,255,255,0.5);
-    border-radius: 2px;
-    cursor: pointer;
-  }
-  .volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: -5px;
-  }
-  .volume-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-  }
   .fullscreen-btn {
     display: flex;
     align-items: center;
@@ -207,8 +112,7 @@ const videoSrc = fileId
   .fullscreen-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   .fullscreen-btn svg { width: 20px; height: 20px; fill: currentColor; }
   @media (prefers-reduced-motion: reduce) {
-    .play-btn, .fullscreen-btn, .seek-progress,
-    .volume-slider::-webkit-slider-thumb {
+    .play-btn, .fullscreen-btn {
       transition: none;
     }
   }
@@ -220,14 +124,11 @@ const videoSrc = fileId
     players.forEach(player => {
       const video = player.querySelector('video');
       const playBtn = player.querySelector('.play-btn');
-      const seekWrapper = player.querySelector('.seek-wrapper');
-      const seekProgress = player.querySelector('.seek-progress');
-      const volumeSlider = player.querySelector('.volume-slider');
       const currentTimeEl = player.querySelector('.current-time');
       const durationEl = player.querySelector('.duration');
       const fullscreenBtn = player.querySelector('.fullscreen-btn');
 
-      const formatTime = (seconds) => {
+      const formatTime = (seconds: number) => {
         if (isNaN(seconds)) return '0:00';
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
@@ -240,8 +141,6 @@ const videoSrc = fileId
 
       video.addEventListener('timeupdate', () => {
         currentTimeEl.textContent = formatTime(video.currentTime);
-        const percent = (video.currentTime / video.duration) * 100;
-        seekProgress.style.width = `${percent}%`;
       });
 
       playBtn.addEventListener('click', () => {
@@ -259,17 +158,6 @@ const videoSrc = fileId
       video.addEventListener('ended', () => {
         playBtn.setAttribute('aria-pressed', 'false');
         playBtn.setAttribute('aria-label', 'Play');
-        seekProgress.style.width = '0%';
-      });
-
-      seekWrapper.addEventListener('click', (e) => {
-        const rect = seekWrapper.getBoundingClientRect();
-        const percent = (e.clientX - rect.left) / rect.width;
-        video.currentTime = percent * video.duration;
-      });
-
-      volumeSlider.addEventListener('input', () => {
-        video.volume = Number(volumeSlider.value);
       });
 
       fullscreenBtn.addEventListener('click', () => {
@@ -280,8 +168,8 @@ const videoSrc = fileId
         }
       });
 
-      player.addEventListener('keydown', (e) => {
-        if (e.target === volumeSlider) return;
+      // Keyboard support
+      player.addEventListener('keydown', (e: KeyboardEvent) => {
         switch (e.key) {
           case ' ':
           case 'k':
@@ -299,12 +187,10 @@ const videoSrc = fileId
           case 'ArrowUp':
             e.preventDefault();
             video.volume = Math.min(1, video.volume + 0.1);
-            volumeSlider.value = String(video.volume);
             break;
           case 'ArrowDown':
             e.preventDefault();
             video.volume = Math.max(0, video.volume - 0.1);
-            volumeSlider.value = String(video.volume);
             break;
           case 'm':
             video.muted = !video.muted;
@@ -312,16 +198,6 @@ const videoSrc = fileId
           case 'f':
             fullscreenBtn.click();
             break;
-        }
-      });
-
-      video.addEventListener('error', () => {
-        if (video.src.includes('drive.google.com')) {
-          const fileId = player.dataset.src.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1];
-          if (fileId) {
-            video.src = `https://drive.google.com/file/d/${fileId}/preview`;
-            video.load();
-          }
         }
       });
     });
