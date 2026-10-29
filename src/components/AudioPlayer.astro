@@ -125,24 +125,32 @@ const { src, title } = Astro.props;
     padding-top: 10px;
     margin-left: 1rem;
   }
-  .volume-slider {
-    width: 4px;
-    height: 60px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: #ddd;
-    border-radius: 2px;
-    cursor: pointer;
-  }
-  .volume-slider::-webkit-slider-thumb,
-  .volume-slider::-moz-range-thumb {
-    -webkit-appearance: none;
-    width: 0;
-    height: 0;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    cursor: pointer;
+.volume-slider {
+  width: 4px;
+  height: 60px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ddd;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #000;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #000;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
   }
   @media (prefers-reduced-motion: reduce) {
     .play-btn, .volume-slider::-webkit-slider-thumb, .seek-progress {
