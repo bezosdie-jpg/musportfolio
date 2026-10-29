@@ -6,13 +6,12 @@ interface Props {
 }
 const { src, title, poster } = Astro.props;
 
-// Extract Google Drive file ID from various URL formats
 function extractDriveFileId(url: string): string | null {
   const patterns = [
-    /\/file\/d\/([a-zA-Z0-9_-]+)/,           // https://drive.google.com/file/d/FILE_ID/view
-    /\/uc\?export=download&id=([a-zA-Z0-9_-]+)/, // https://drive.google.com/uc?export=download&id=FILE_ID
-    /id=([a-zA-Z0-9_-]+)/,                    // generic id=FILE_ID
-    /^([a-zA-Z0-9_-]{25,})$/                  // bare file ID
+    /\/file\/d\/([a-zA-Z0-9_-]+)/,
+    /\/uc\?export=download&id=([a-zA-Z0-9_-]+)/,
+    /id=([a-zA-Z0-9_-]+)/,
+    /^([a-zA-Z0-9_-]{25,})$/
   ];
 
   for (const pattern of patterns) {
@@ -23,10 +22,6 @@ function extractDriveFileId(url: string): string | null {
 }
 
 const fileId = extractDriveFileId(src);
-// Use direct streaming URL that works with HTML5 video
-// Note: For large files, Google Drive requires a confirmation page.
-// The 'uc?export=download' endpoint works for smaller files.
-// For larger files, we may need a different approach.
 const videoSrc = fileId
   ? `https://drive.google.com/uc?export=download&id=${fileId}`
   : src;
@@ -232,7 +227,7 @@ const videoSrc = fileId
       const durationEl = player.querySelector('.duration');
       const fullscreenBtn = player.querySelector('.fullscreen-btn');
 
-      const formatTime = (seconds: number) => {
+      const formatTime = (seconds) => {
         if (isNaN(seconds)) return '0:00';
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
@@ -267,7 +262,7 @@ const videoSrc = fileId
         seekProgress.style.width = '0%';
       });
 
-      seekWrapper.addEventListener('click', (e: MouseEvent) => {
+      seekWrapper.addEventListener('click', (e) => {
         const rect = seekWrapper.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
         video.currentTime = percent * video.duration;
@@ -285,8 +280,7 @@ const videoSrc = fileId
         }
       });
 
-      // Keyboard support
-      player.addEventListener('keydown', (e: KeyboardEvent) => {
+      player.addEventListener('keydown', (e) => {
         if (e.target === volumeSlider) return;
         switch (e.key) {
           case ' ':
@@ -321,11 +315,8 @@ const videoSrc = fileId
         }
       });
 
-      // Handle Google Drive large file confirmation page
       video.addEventListener('error', () => {
         if (video.src.includes('drive.google.com')) {
-          console.warn('Google Drive direct link failed, trying alternative...');
-          // Try the preview embed URL as fallback
           const fileId = player.dataset.src.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1];
           if (fileId) {
             video.src = `https://drive.google.com/file/d/${fileId}/preview`;
