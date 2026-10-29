@@ -1,43 +1,63 @@
 ---
 interface Props {
-  src: string;
+  src?: string;
   title: string;
   poster?: string;
+  embedUrl?: string;
 }
-const { src, title, poster } = Astro.props;
+const { src, title, poster, embedUrl } = Astro.props;
+const isEmbed = !!embedUrl;
+const videoSrc = embedUrl || src;
 ---
-<div class="video-player" data-src={src}>
-  <video
-    id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
-    src={src}
-    poster={poster}
-    preload="metadata"
-    playsinline
-    aria-label={title}
-  ></video>
-  <div class="video-controls">
-    <button
-      class="play-btn"
-      aria-label="Play"
-      aria-pressed="false"
-      data-action="play"
-    >
-      <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-    </button>
-    <div class="time-display">
-      <span class="current-time">0:00</span>
-      <span class="separator" aria-hidden="true">/</span>
-      <span class="duration">0:00</span>
-    </div>
-    <button
-      class="fullscreen-btn"
-      aria-label="Fullscreen"
-      data-action="fullscreen"
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-    </button>
-  </div>
+<div class="video-player" data-src={videoSrc}>
+  {isEmbed ? (
+    <>
+      {poster && (
+        <div class="video-poster" style="background-image: url({poster})" aria-hidden="true"></div>
+      )}
+      <iframe
+        id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
+        src={embedUrl}
+        title={title}
+        allow="autoplay; fullscreen"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    </>
+  ) : (
+    <>
+      <video
+        id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
+        src={src}
+        poster={poster}
+        preload="metadata"
+        aria-label={title}
+      ></video>
+      <div class="video-controls">
+        <button
+          class="play-btn"
+          aria-label="Play"
+          aria-pressed="false"
+          data-action="play"
+        >
+          <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <div class="time-display">
+          <span class="current-time">0:00</span>
+          <span class="separator" aria-hidden="true">/</span>
+          <span class="duration">0:00</span>
+        </div>
+        <button
+          class="fullscreen-btn"
+          aria-label="Fullscreen"
+          data-action="fullscreen"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+      </div>
+    </>
+  )}
 </div>
 
 <style>
@@ -52,10 +72,24 @@ const { src, title, poster } = Astro.props;
     font-family: inherit;
     font-size: 0.875rem;
   }
-  .video-player video {
+  .video-player video,
+  .video-player iframe {
     display: block;
     width: 100%;
     height: auto;
+    aspect-ratio: 16 / 9;
+  }
+  .video-poster {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    cursor: pointer;
+  }
+  .video-player iframe {
+    border: none;
+    min-height: 360px;
   }
   .video-controls {
     position: absolute;
@@ -127,6 +161,9 @@ const { src, title, poster } = Astro.props;
       const currentTimeEl = player.querySelector('.current-time');
       const durationEl = player.querySelector('.duration');
       const fullscreenBtn = player.querySelector('.fullscreen-btn');
+      const poster = player.querySelector('.video-poster');
+
+      if (!video) return; // embed/iframe mode — no custom controls
 
       const formatTime = (seconds: number) => {
         if (isNaN(seconds)) return '0:00';
@@ -166,6 +203,17 @@ const { src, title, poster } = Astro.props;
         } else {
           document.exitFullscreen().catch(() => {});
         }
+      });
+
+      // Hide poster on play
+      poster?.addEventListener('click', () => {
+        video.play();
+      });
+      video.addEventListener('play', () => {
+        if (poster) poster.style.display = 'none';
+      });
+      video.addEventListener('pause', () => {
+        if (poster && video.currentTime === 0) poster.style.display = '';
       });
 
       // Keyboard support
