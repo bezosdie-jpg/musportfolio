@@ -4,7 +4,7 @@
     "type": "audio",
     "title": "'rishi catwalk",
     "description": "музыка для показа мод. 20 минут. сэмплы, синты, прямые ритмы пересекаются и с гитарным поп-звуком, и с брейксами",
-    "file": "media.catwalk-fashion.mp3",
+    "file": "/musportfolio/media/catwalk-fashion.mp3",
     "duration": "3:45"
   },
   {
@@ -12,7 +12,7 @@
     "type": "audio",
     "title": "dub root",
     "description": "изучаю даб. живой бас и гитара",
-    "file": "/media/dubroot.mp3",
+    "file": "/musportfolio/media/dubroot.mp3",
     "duration": "4:12"
   },
   {
@@ -20,7 +20,7 @@
     "type": "audio",
     "title": "LIVE1",
     "description": "полный цикл лайв: расстановка, контроль, запись, сведение",
-    "file": "/media/LIVE1.mp3",
+    "file": "/musportfolio/media/LIVE1.mp3",
     "duration": "5:20"
   },
   {
@@ -28,7 +28,7 @@
     "type": "audio",
     "title": "post dub",
     "description": "вдохнолвенное чем-то вроде burial и zomby",
-    "file": "/media/postdub.mp3",
+    "file": "/musportfolio/media/postdub.mp3",
     "duration": "3:30"
   },
   {
@@ -36,7 +36,7 @@
     "type": "audio",
     "title": "Альбомы",
     "description": "микс бэдрум записи, отличный трек",
-    "file": "/media/Альбомы.mp3",
+    "file": "/musportfolio/media/Альбомы.mp3",
     "duration": "6:45"
   },
   {
@@ -44,7 +44,7 @@
     "type": "audio",
     "title": "Track Six",
     "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-6.mp3",
+    "file": "/musportfolio/media/ваш-файл-6.mp3",
     "duration": "4:55"
   },
   {
@@ -52,7 +52,7 @@
     "type": "audio",
     "title": "Track Seven",
     "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-7.mp3",
+    "file": "/musportfolio/media/ваш-файл-7.mp3",
     "duration": "7:10"
   },
   {
@@ -60,7 +60,7 @@
     "type": "audio",
     "title": "Track Eight",
     "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-8.mp3",
+    "file": "/musportfolio/media/ваш-файл-8.mp3",
     "duration": "5:30"
   },
   {
