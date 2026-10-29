@@ -2,41 +2,41 @@
   {
     "id": "audio-1",
     "type": "audio",
-    "title": "Track One",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-1.mp3",
+    "title": "'rishi catwalk",
+    "description": "музыка для показа мод. 20 минут. сэмплы, синты, прямые ритмы пересекаются и с гитарным поп-звуком, и с брейксами",
+    "file": "/media/catwalk - fashion.mp3",
     "duration": "3:45"
   },
   {
     "id": "audio-2",
     "type": "audio",
-    "title": "Track Two",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-2.mp3",
+    "title": "dub root",
+    "description": "изучаю даб. живой бас и гитара",
+    "file": "/media/dub root.mp3",
     "duration": "4:12"
   },
   {
     "id": "audio-3",
     "type": "audio",
-    "title": "Track Three",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-3.mp3",
+    "title": "LIVE 1",
+    "description": "полный цикл лайв: расстановка, контроль, запись, сведение",
+    "file": "/media/LIVE 1.mp3",
     "duration": "5:20"
   },
   {
     "id": "audio-4",
     "type": "audio",
-    "title": "Track Four",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-4.mp3",
+    "title": "post dub",
+    "description": "вдохнолвенное чем-то вроде burial и zomby",
+    "file": "/media/post dub.mp3",
     "duration": "3:30"
   },
   {
     "id": "audio-5",
     "type": "audio",
-    "title": "Track Five",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-5.mp3",
+    "title": "Альбомы",
+    "description": "микс бэдрум записи, отличный трек",
+    "file": "/media/Альбомы.mp3",
     "duration": "6:45"
   },
   {
