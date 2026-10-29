@@ -120,8 +120,8 @@ const videoSrc = embedUrl || src;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border: none;
     background: rgba(255,255,255,0.9);
     color: #000;
@@ -133,8 +133,8 @@ const videoSrc = embedUrl || src;
   .volume-btn:hover { background: #fff; }
   .play-btn:focus-visible,
   .volume-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-  .icon-play { display: block; width: 18px; height: 18px; fill: currentColor; }
-  .icon-pause { display: none; width: 18px; height: 18px; fill: currentColor; }
+  .icon-play { display: block; width: 14px; height: 14px; fill: currentColor; }
+  .icon-pause { display: none; width: 14px; height: 14px; fill: currentColor; }
   .play-btn[aria-pressed="true"] .icon-play { display: none; }
   .play-btn[aria-pressed="true"] .icon-pause { display: block; }
   .time-display {
@@ -195,7 +195,7 @@ const videoSrc = embedUrl || src;
     display: flex;
     align-items: center;
   }
-  .volume-btn svg { width: 18px; height: 18px; fill: currentColor; }
+  .volume-btn svg { width: 14px; height: 14px; fill: currentColor; }
   .icon-volume-high { display: block; }
   .icon-volume-low { display: none; }
   .icon-volume-mute { display: none; }
@@ -286,13 +286,8 @@ const videoSrc = embedUrl || src;
           if (started) return;
           started = true;
           poster.style.display = 'none';
-          iframe.src = dataSrc.includes('?autoplay=1') ? dataSrc : `${dataSrc}?autoplay=1`;
-        });
-
-        iframe.addEventListener('load', () => {
-          if (!started && poster) {
-            poster.style.display = 'block';
-          }
+          const finalSrc = dataSrc.includes('?') ? `${dataSrc}&autoplay=1` : `${dataSrc}?autoplay=1`;
+          iframe.src = finalSrc;
         });
       }
 
