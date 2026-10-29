@@ -9,11 +9,12 @@ const { src, title, poster, embedUrl } = Astro.props;
 const isEmbed = !!embedUrl;
 const videoSrc = embedUrl || src;
 ---
+
 <div class="video-player" data-src={videoSrc}>
   {isEmbed ? (
     <>
       {poster && (
-        <div class="video-poster" style="background-image: url({poster})" aria-hidden="true"></div>
+        <div class="video-poster" style={{ backgroundImage: `url(${poster})` }} aria-hidden="true"></div>
       )}
       <iframe
         id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
@@ -165,7 +166,7 @@ const videoSrc = embedUrl || src;
 
       if (!video) return; // embed/iframe mode — no custom controls
 
-      const formatTime = (seconds: number) => {
+      const formatTime = (seconds) => {
         if (isNaN(seconds)) return '0:00';
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
@@ -217,7 +218,7 @@ const videoSrc = embedUrl || src;
       });
 
       // Keyboard support
-      player.addEventListener('keydown', (e: KeyboardEvent) => {
+      player.addEventListener('keydown', (e) => {
         switch (e.key) {
           case ' ':
           case 'k':
