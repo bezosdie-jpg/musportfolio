@@ -28,12 +28,7 @@ const { work } = Astro.props;
     )}
     {work.type === 'video' && work.file && (
       <VideoPlayer src={work.file} title={work.title} poster={work.poster} />
-    )}
-    {work.type === 'gdrive' && work.file && (
-      <GoogleDriveVideoPlayer src={work.file} title={work.title} poster={work.poster} />
-    )}
-    {work.type === 'embed' && work.embedUrl && (
-      <EmbedPlayer embedUrl={work.embedUrl} title={work.title} poster={work.poster} />
+  
     )}
   </div>
 </article>
