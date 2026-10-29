@@ -14,11 +14,11 @@ const videoSrc = embedUrl || src;
   {isEmbed ? (
     <>
       {poster && (
-        <div class="video-poster" style={{ backgroundImage: `url(${poster})` }} aria-hidden="true"></div>
+        <div class="video-poster" style={{ backgroundImage: `url(${poster})` }} aria-hidden="true" data-poster="true"></div>
       )}
       <iframe
         id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
-        src={embedUrl}
+        src={videoSrc}
         title={title}
         allow="autoplay; fullscreen"
         allowfullscreen
@@ -85,12 +85,13 @@ const videoSrc = embedUrl || src;
     inset: 0;
     background-size: cover;
     background-position: center;
-    z-index: 1;
+    z-index: 2;
     cursor: pointer;
   }
   .video-player iframe {
     border: none;
     min-height: 360px;
+    z-index: 1;
   }
   .video-controls {
     position: absolute;
@@ -103,6 +104,7 @@ const videoSrc = embedUrl || src;
     padding: 0.75rem 1rem;
     background: linear-gradient(transparent, rgba(0,0,0,0.8));
     color: #fff;
+    z-index: 3;
   }
   .play-btn {
     display: flex;
@@ -158,13 +160,25 @@ const videoSrc = embedUrl || src;
     const players = document.querySelectorAll('.video-player');
     players.forEach(player => {
       const video = player.querySelector('video');
+      const iframe = player.querySelector('iframe');
       const playBtn = player.querySelector('.play-btn');
       const currentTimeEl = player.querySelector('.current-time');
       const durationEl = player.querySelector('.duration');
       const fullscreenBtn = player.querySelector('.fullscreen-btn');
       const poster = player.querySelector('.video-poster');
+      const dataSrc = player.getAttribute('data-src');
 
-      if (!video) return; // embed/iframe mode — no custom controls
+      if (!video && !iframe) return;
+
+      if (iframe && poster) {
+        // embed mode: click poster to load video
+        poster.addEventListener('click', () => {
+          iframe.src = dataSrc;
+          poster.style.display = 'none';
+        });
+      }
+
+      if (!video) return;
 
       const formatTime = (seconds) => {
         if (isNaN(seconds)) return '0:00';
@@ -206,7 +220,6 @@ const videoSrc = embedUrl || src;
         }
       });
 
-      // Hide poster on play
       poster?.addEventListener('click', () => {
         video.play();
       });
@@ -217,7 +230,6 @@ const videoSrc = embedUrl || src;
         if (poster && video.currentTime === 0) poster.style.display = '';
       });
 
-      // Keyboard support
       player.addEventListener('keydown', (e) => {
         switch (e.key) {
           case ' ':
@@ -252,3 +264,4 @@ const videoSrc = embedUrl || src;
     });
   });
 </script>
+
