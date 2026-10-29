@@ -3,15 +3,23 @@ interface Props {
   src: string;
   title: string;
 }
+
 const { src, title } = Astro.props;
+
+// На продакшене с base '/musportfolio/' Astro сам добавит base к относительным путям,
+// но для <audio src> явно склеиваем, чтобы не было 404 на GitHub Pages.
+const audioSrc = import.meta.env.PROD && !src.startsWith('http')
+  ? `/musportfolio/${src.replace(/^\//, '')}`
+  : src;
 ---
 
-<div class="audio-player" data-src={src}>
+<div class="audio-player" data-src={audioSrc}>
   <audio
     id={`audio-${title.replace(/\s+/g, '-').toLowerCase()}`}
-    src={src}
+    src={audioSrc}
     preload="metadata"
     aria-label={title}
+    crossorigin="anonymous"
   ></audio>
   <div class="audio-controls">
     <button
@@ -134,6 +142,10 @@ const { src, title } = Astro.props;
         durationEl.textContent = formatTime(audio.duration);
       });
 
+      audio.addEventListener('error', (e) => {
+        console.error('Audio load error:', e);
+      });
+
       audio.addEventListener('timeupdate', () => {
         const percent = (audio.currentTime / audio.duration) * 100;
         seekProgress.style.width = `${percent}%`;
@@ -150,7 +162,7 @@ const { src, title } = Astro.props;
             prevBtn?.setAttribute('aria-pressed', 'false');
             prevBtn?.setAttribute('aria-label', 'Play');
           }
-          audio.play();
+          audio.play().catch(() => {});
           currentlyPlaying = audio;
           playBtn.setAttribute('aria-pressed', 'true');
           playBtn.setAttribute('aria-label', 'Pause');

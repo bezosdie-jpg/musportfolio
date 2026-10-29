@@ -4,7 +4,7 @@
     "type": "audio",
     "title": "'rishi catwalk",
     "description": "музыка для показа мод. 20 минут. сэмплы, синты, прямые ритмы пересекаются и с гитарным поп-звуком, и с брейксами",
-    "file": "/media/catwalk-fashion.mp3",
+    "file": "media/catwalk-fashion.mp3",
     "duration": "3:45"
   },
   {
@@ -12,7 +12,7 @@
     "type": "audio",
     "title": "dub root",
     "description": "изучаю даб. живой бас и гитара",
-    "file": "/media/dubroot.mp3",
+    "file": "media/dubroot.mp3",
     "duration": "4:12"
   },
   {
@@ -20,7 +20,7 @@
     "type": "audio",
     "title": "LIVE1",
     "description": "полный цикл лайв: расстановка, контроль, запись, сведение",
-    "file": "/media/LIVE1.mp3",
+    "file": "media/LIVE1.mp3",
     "duration": "5:20"
   },
   {
@@ -28,7 +28,7 @@
     "type": "audio",
     "title": "post dub",
     "description": "вдохнолвенное чем-то вроде burial и zomby",
-    "file": "/media/postdub.mp3",
+    "file": "media/postdub.mp3",
     "duration": "3:30"
   },
   {
@@ -36,7 +36,7 @@
     "type": "audio",
     "title": "Альбомы",
     "description": "микс бэдрум записи, отличный трек",
-    "file": "/media/Альбомы.mp3",
+    "file": "media/Альбомы.mp3",
     "duration": "6:45"
   },
   {
@@ -44,7 +44,7 @@
     "type": "audio",
     "title": "Track Six",
     "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-6.mp3",
+    "file": "media/ваш-файл-6.mp3",
     "duration": "4:55"
   },
   {
@@ -52,7 +52,7 @@
     "type": "audio",
     "title": "Track Seven",
     "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-7.mp3",
+    "file": "media/ваш-файл-7.mp3",
     "duration": "7:10"
   },
   {
@@ -60,7 +60,7 @@
     "type": "audio",
     "title": "Track Eight",
     "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "/media/ваш-файл-8.mp3",
+    "file": "media/ваш-файл-8.mp3",
     "duration": "5:30"
   },
   {
@@ -69,7 +69,7 @@
     "title": "тачки",
     "description": "Озвучка видео с Пинтереста. Без изначального референса. Написание музыки с инструментом(гитара)), работа с библиотеками, и синтезом собственных звуков..",
     "file": "https://drive.google.com/file/d/1yyggeZmUaZ96cjWnvEi9cNnlTXqKNSYA/view?usp=sharing",
-    "poster": "/media/Frame 1.jpg",
+    "poster": "media/Frame 1.jpg",
     "duration": "5:30"
   },
   {
@@ -78,7 +78,7 @@
     "title": "Video Two",
     "description": "Видео с Google Drive. Замените ссылку на свою.",
     "file": "https://drive.google.com/file/d/FILE_ID_2/view",
-    "poster": "/media/poster-2.jpg",
+    "poster": "media/poster-2.jpg",
     "duration": "7:15"
   },
   {
@@ -87,7 +87,7 @@
     "title": "Video Three",
     "description": "Видео с Google Drive. Замените ссылку на свою.",
     "file": "https://drive.google.com/file/d/FILE_ID_3/view",
-    "poster": "/media/Frame 1.jpg",
+    "poster": "media/Frame 1.jpg",
     "duration": "10:00"
   },
   {
@@ -96,7 +96,7 @@
     "title": "Video Four",
     "description": "Видео с Google Drive. Замените ссылку на свою.",
     "file": "https://drive.google.com/file/d/FILE_ID_4/view",
-    "poster": "/media/poster-4.jpg",
+    "poster": "media/poster-4.jpg",
     "duration": "4:45"
   }
 ]
