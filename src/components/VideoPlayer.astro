@@ -18,11 +18,12 @@ const videoSrc = embedUrl || src;
       )}
       <iframe
         id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
-        src={videoSrc}
+        src=""
         title={title}
         allow="autoplay; fullscreen"
         allowfullscreen
         loading="lazy"
+        data-src={videoSrc}
       ></iframe>
     </>
   ) : (
@@ -62,20 +63,6 @@ const videoSrc = embedUrl || src;
           </button>
           <div class="volume-slider-wrapper">
             <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1" aria-label="Volume">
-          </div>
-        </div>
-        <button class="settings-btn" aria-label="Settings" aria-expanded="false" data-action="settings">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.19-.07.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.04.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.19.07-.47-.12-.61l-2.03-1.58c.04-.31.06-.63.06-.94zm-7.14 5.09c-2.43 0-4.46-1.99-4.46-4.46s2.03-4.46 4.46-4.46 4.46 1.99 4.46 4.46-2.03 4.46-4.46 4.46z"/></svg>
-        </button>
-        <div class="settings-dropdown" hidden>
-          <div class="setting-item">
-            <span>Playback speed</span>
-            <select class="speed-select" aria-label="Playback speed">
-              <option value="0.5">0.5x</option>
-              <option value="1" selected>1x</option>
-              <option value="1.5">1.5x</option>
-              <option value="2">2x</option>
-            </select>
           </div>
         </div>
       </div>
@@ -129,9 +116,7 @@ const videoSrc = embedUrl || src;
     z-index: 3;
   }
   .play-btn,
-  .volume-btn,
-  .settings-btn,
-  .fullscreen-btn {
+  .volume-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -145,13 +130,9 @@ const videoSrc = embedUrl || src;
     transition: background 0.2s;
   }
   .play-btn:hover,
-  .volume-btn:hover,
-  .settings-btn:hover,
-  .fullscreen-btn:hover { background: #fff; }
+  .volume-btn:hover { background: #fff; }
   .play-btn:focus-visible,
-  .volume-btn:focus-visible,
-  .settings-btn:focus-visible,
-  .fullscreen-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .volume-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   .icon-play { display: block; width: 18px; height: 18px; fill: currentColor; }
   .icon-pause { display: none; width: 18px; height: 18px; fill: currentColor; }
   .play-btn[aria-pressed="true"] .icon-play { display: none; }
@@ -269,38 +250,8 @@ const videoSrc = embedUrl || src;
     border-radius: 50%;
     cursor: pointer;
   }
-  .settings-btn svg { width: 18px; height: 18px; fill: currentColor; }
-  .settings-dropdown {
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    margin-bottom: 0.375rem;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 0.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 10;
-    min-width: 160px;
-  }
-  .setting-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .setting-item span { font-size: 0.75rem; color: #333; }
-  .speed-select {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #fff;
-    color: #333;
-    cursor: pointer;
-  }
-  .fullscreen-btn svg { width: 18px; height: 18px; fill: currentColor; }
   @media (prefers-reduced-motion: reduce) {
-    .play-btn, .volume-btn, .settings-btn,
+    .play-btn, .volume-btn,
     .seek-progress, .seek-handle, .volume-slider {
       transition: none;
     }
@@ -316,7 +267,6 @@ const videoSrc = embedUrl || src;
       const playBtn = player.querySelector('.play-btn');
       const currentTimeEl = player.querySelector('.current-time');
       const durationEl = player.querySelector('.duration');
-      const fullscreenBtn = player.querySelector('.fullscreen-btn');
       const poster = player.querySelector('.video-poster');
       const seekWrapper = player.querySelector('.seek-wrapper');
       const seekProgress = player.querySelector('.seek-progress');
@@ -324,31 +274,30 @@ const videoSrc = embedUrl || src;
       const volumeBtn = player.querySelector('.volume-btn');
       const volumeSlider = player.querySelector('.volume-slider');
       const volumeSliderWrapper = player.querySelector('.volume-slider-wrapper');
-      const settingsBtn = player.querySelector('.settings-btn');
-      const settingsDropdown = player.querySelector('.settings-dropdown');
-      const speedSelect = player.querySelector('.speed-select');
       const dataSrc = player.getAttribute('data-src');
-      const videoTitle = player.getAttribute('data-title');
 
       if (!video && !iframe) return;
 
+      // === EMBED MODE (Google Drive) ===
       if (iframe && poster) {
-        // embed mode: click poster to load video
+        let started = false;
+
         poster.addEventListener('click', () => {
-          iframe.src = dataSrc;
+          if (started) return;
+          started = true;
           poster.style.display = 'none';
+          iframe.src = dataSrc.includes('?autoplay=1') ? dataSrc : `${dataSrc}?autoplay=1`;
+        });
+
+        iframe.addEventListener('load', () => {
+          if (!started && poster) {
+            poster.style.display = 'block';
+          }
         });
       }
 
+      // === LOCAL VIDEO MODE ===
       if (!video) return;
-
-      // Restore playback speed from localStorage
-      const storageKey = `video-speed-${videoTitle}`;
-      const savedSpeed = localStorage.getItem(storageKey);
-      if (savedSpeed) {
-        video.playbackRate = parseFloat(savedSpeed);
-        speedSelect.value = savedSpeed;
-      }
 
       const formatTime = (seconds) => {
         if (isNaN(seconds)) return '0:00';
@@ -359,6 +308,7 @@ const videoSrc = embedUrl || src;
 
       video.addEventListener('loadedmetadata', () => {
         durationEl.textContent = formatTime(video.duration);
+        if (poster) poster.style.display = 'none';
       });
 
       video.addEventListener('timeupdate', () => {
@@ -368,7 +318,6 @@ const videoSrc = embedUrl || src;
         seekHandle.style.left = `${percent}%`;
       });
 
-      // Seek bar click/drag
       let isSeeking = false;
       seekWrapper.addEventListener('mousedown', (e) => {
         isSeeking = true;
@@ -389,7 +338,6 @@ const videoSrc = embedUrl || src;
           seekWrapper.classList.remove('dragging');
         }
       });
-      // Touch support
       seekWrapper.addEventListener('touchstart', (e) => {
         isSeeking = true;
         seekWrapper.classList.add('dragging');
@@ -422,6 +370,16 @@ const videoSrc = embedUrl || src;
         }
       });
 
+      video.addEventListener('play', () => {
+        playBtn.setAttribute('aria-pressed', 'true');
+        playBtn.setAttribute('aria-label', 'Pause');
+      });
+
+      video.addEventListener('pause', () => {
+        playBtn.setAttribute('aria-pressed', 'false');
+        playBtn.setAttribute('aria-label', 'Play');
+      });
+
       video.addEventListener('ended', () => {
         playBtn.setAttribute('aria-pressed', 'false');
         playBtn.setAttribute('aria-label', 'Play');
@@ -429,14 +387,12 @@ const videoSrc = embedUrl || src;
         seekHandle.style.left = '0%';
       });
 
-      // Volume controls
       const updateVolumeUI = () => {
         const vol = video.volume;
         const isMuted = video.muted || vol === 0;
         volumeBtn.setAttribute('aria-pressed', isMuted.toString());
         volumeBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
         volumeSlider.value = vol;
-        // Update volume icon
         volumeBtn.querySelector('.icon-volume-high').style.display = (!isMuted && vol > 0.5) ? 'block' : 'none';
         volumeBtn.querySelector('.icon-volume-low').style.display = (!isMuted && vol > 0 && vol <= 0.5) ? 'block' : 'none';
         volumeBtn.querySelector('.icon-volume-mute').style.display = isMuted ? 'block' : 'none';
@@ -455,43 +411,14 @@ const videoSrc = embedUrl || src;
 
       video.addEventListener('volumechange', updateVolumeUI);
 
-      // Settings dropdown
-      settingsBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isExpanded = settingsBtn.getAttribute('aria-expanded') === 'true';
-        settingsBtn.setAttribute('aria-expanded', (!isExpanded).toString());
-        settingsDropdown.hidden = isExpanded;
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!settingsDropdown.hidden && !settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
-          settingsDropdown.hidden = true;
-          settingsBtn.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      speedSelect.addEventListener('change', (e) => {
-        const speed = parseFloat(e.target.value);
-        video.playbackRate = speed;
-        localStorage.setItem(storageKey, speed.toString());
-      });
-
-      video.addEventListener('ratechange', () => {
-        speedSelect.value = video.playbackRate.toString();
-      });
-
       poster?.addEventListener('click', () => {
         video.play();
       });
       video.addEventListener('play', () => {
         if (poster) poster.style.display = 'none';
-        playBtn.setAttribute('aria-pressed', 'true');
-        playBtn.setAttribute('aria-label', 'Pause');
       });
       video.addEventListener('pause', () => {
         if (poster && video.currentTime === 0) poster.style.display = '';
-        playBtn.setAttribute('aria-pressed', 'false');
-        playBtn.setAttribute('aria-label', 'Play');
       });
 
       player.addEventListener('keydown', (e) => {
