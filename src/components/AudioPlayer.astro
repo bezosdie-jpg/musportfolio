@@ -145,6 +145,10 @@ const { src, title } = Astro.props;
         if (audio.paused) {
           if (currentlyPlaying && currentlyPlaying !== audio) {
             currentlyPlaying.pause();
+            const prevPlayer = currentlyPlaying.closest('.audio-player');
+            const prevBtn = prevPlayer?.querySelector('.play-btn');
+            prevBtn?.setAttribute('aria-pressed', 'false');
+            prevBtn?.setAttribute('aria-label', 'Play');
           }
           audio.play();
           currentlyPlaying = audio;
