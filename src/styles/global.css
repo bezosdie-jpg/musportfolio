@@ -3,6 +3,7 @@
   --color-bg: #ffffff;
   --color-text: #111111;
   --color-text-muted: #666666;
+  --color-text-light: #aaa;
   --color-border: #e0e0e0;
   --color-accent: #000000;
   --color-accent-hover: #333333;
@@ -107,6 +108,7 @@ button {
   padding-bottom: var(--spacing-sm);
   border-bottom: 2px solid var(--color-accent);
   display: inline-block;
+  color: var(--color-text-light);
 }
 @media (max-width: 600px) {
   .section-title { font-size: 1.25rem; }
@@ -124,8 +126,12 @@ button {
 }
 
 /* About */
+.about {
+  text-align: center;
+}
 .about-content {
   max-width: 600px;
+  margin: 0 auto;
 }
 .about-content p {
   margin-bottom: var(--spacing-md);
@@ -136,6 +142,7 @@ button {
   flex-wrap: wrap;
   gap: var(--spacing-md);
   margin-top: var(--spacing-lg);
+  justify-content: center;
 }
 .contact-link {
   display: inline-block;
