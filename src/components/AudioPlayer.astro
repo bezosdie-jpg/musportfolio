@@ -137,8 +137,9 @@ const { src, title } = Astro.props;
         currentTimeEl.textContent = formatTime(audio.currentTime);
       });
 
-      playBtn.addEventListener('click', () => {
-        if (audio.paused) {
+     playBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (audio.paused) {
           audio.play();
           playBtn.setAttribute('aria-pressed', 'true');
           playBtn.setAttribute('aria-label', 'Pause');
@@ -156,7 +157,8 @@ const { src, title } = Astro.props;
       });
 
       seekWrapper.addEventListener('click', (e) => {
-        const rect = seekWrapper.getBoundingClientRect();
+  e.stopPropagation();
+  const rect = seekWrapper.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
         audio.currentTime = percent * audio.duration;
       });

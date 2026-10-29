@@ -4,7 +4,7 @@
     "type": "audio",
     "title": "'rishi catwalk",
     "description": "музыка для показа мод. 20 минут. сэмплы, синты, прямые ритмы пересекаются и с гитарным поп-звуком, и с брейксами",
-    "file": "/media/catwalk - fashion.mp3",
+    "file": "catwalk-fashion.mp3",
     "duration": "3:45"
   },
   {
@@ -12,13 +12,13 @@
     "type": "audio",
     "title": "dub root",
     "description": "изучаю даб. живой бас и гитара",
-    "file": "/media/dub root.mp3",
+    "file": "/media/dubroot.mp3",
     "duration": "4:12"
   },
   {
     "id": "audio-3",
     "type": "audio",
-    "title": "LIVE 1",
+    "title": "LIVE1",
     "description": "полный цикл лайв: расстановка, контроль, запись, сведение",
     "file": "/media/LIVE 1.mp3",
     "duration": "5:20"
@@ -28,7 +28,7 @@
     "type": "audio",
     "title": "post dub",
     "description": "вдохнолвенное чем-то вроде burial и zomby",
-    "file": "/media/post dub.mp3",
+    "file": "/media/postdub.mp3",
     "duration": "3:30"
   },
   {
