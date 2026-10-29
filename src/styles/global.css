@@ -22,6 +22,7 @@
   --max-width: 960px;
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
+  --bg-image: url('/musportfolio/media/bg.jpg');
 }
 
 /* Reset */
@@ -50,6 +51,11 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
