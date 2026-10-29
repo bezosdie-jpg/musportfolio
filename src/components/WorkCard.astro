@@ -40,6 +40,9 @@ const { work } = Astro.props;
     border-radius: 12px;
     padding: 1.5rem;
     transition: box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   .work-card:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -72,6 +75,7 @@ const { work } = Astro.props;
     margin: 0 0 1rem;
     color: #444;
     line-height: 1.6;
+    flex: 1;
   }
   .work-player {
     width: 100%;
