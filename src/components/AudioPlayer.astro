@@ -111,6 +111,8 @@ const { src, title } = Astro.props;
 </style>
 
 <script>
+  let currentlyPlaying = null;
+
   document.addEventListener('DOMContentLoaded', () => {
     const players = document.querySelectorAll('.audio-player');
     players.forEach((player) => {
@@ -141,7 +143,11 @@ const { src, title } = Astro.props;
       playBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (audio.paused) {
+          if (currentlyPlaying && currentlyPlaying !== audio) {
+            currentlyPlaying.pause();
+          }
           audio.play();
+          currentlyPlaying = audio;
           playBtn.setAttribute('aria-pressed', 'true');
           playBtn.setAttribute('aria-label', 'Pause');
         } else {
@@ -155,6 +161,9 @@ const { src, title } = Astro.props;
         playBtn.setAttribute('aria-pressed', 'false');
         playBtn.setAttribute('aria-label', 'Play');
         seekProgress.style.width = '0%';
+        if (currentlyPlaying === audio) {
+          currentlyPlaying = null;
+        }
       });
 
       seekWrapper.addEventListener('click', (e) => {
