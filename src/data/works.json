@@ -5,63 +5,15 @@
     "title": "'rishi catwalk",
     "description": "музыка для показа мод. 20 минут. сэмплы, синты, прямые ритмы пересекаются и с гитарным поп-звуком, и с брейксами",
     "file": "media/catwalk-fashion.mp3",
-    "duration": "3:45"
+    "duration": " "
   },
   {
     "id": "audio-2",
     "type": "audio",
     "title": "dub root",
-    "description": "изучаю даб. живой бас и гитара",
+    "description": "запись бас-гитары и гиатры в линию.из котороткого релиза пресиполненного любовью к даб музыке",
     "file": "media/dubroot.mp3",
-    "duration": "4:12"
-  },
-  {
-    "id": "audio-3",
-    "type": "audio",
-    "title": "live1",
-    "description": "полный цикл лайв: расстановка, контроль, запись, сведение",
-    "file": "media/LIVE1.mp3",
-    "duration": "5:20"
-  },
-  {
-    "id": "audio-4",
-    "type": "audio",
-    "title": "post dub",
-    "description": "вдохнолвенное чем-то вроде burial и zomby",
-    "file": "media/postdub.mp3",
-    "duration": "3:30"
-  },
-  {
-    "id": "audio-5",
-    "type": "audio",
-    "title": "альбомы",
-    "description": "микс бэдрум записи, отличный трек",
-    "file": "media/Альбомы.mp3",
-    "duration": "6:45"
-  },
-  {
-    "id": "audio-6",
-    "type": "audio",
-    "title": "Track Six",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "media/ваш-файл-6.mp3",
-    "duration": "4:55"
-  },
-  {
-    "id": "audio-7",
-    "type": "audio",
-    "title": "Track Seven",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "media/ваш-файл-7.mp3",
-    "duration": "7:10"
-  },
-  {
-    "id": "audio-8",
-    "type": "audio",
-    "title": "Track Eight",
-    "description": "Описание трека. Добавьте своё описание здесь.",
-    "file": "media/ваш-файл-8.mp3",
-    "duration": "5:30"
+    "duration": " "
   },
   {
     "id": "video-1",
@@ -70,16 +22,77 @@
     "description": "Озвучка видео с Пинтереста. Без изначального референса. Написание музыки с инструментом(гитара)), работа с библиотеками, и синтезом собственных звуков..",
     "file": "https://drive.google.com/file/d/1yyggeZmUaZ96cjWnvEi9cNnlTXqKNSYA/preview",
     "poster": "media/Frame 1.jpg",
-    "duration": "5:30"
+    "duration": " "
+
   },
   {
     "id": "video-2",
     "type": "gdrive",
     "title": "Video Two",
-    "description": "Видео с Google Drive. Замените ссылку на свою.",
-    "file": "https://drive.google.com/file/d/FILE_ID_2/view",
+    "description": "Дизайн звука с музыкальной пождожкой. Синтез своих звуков и работа с библиотеками",
+    "file": "https://drive.google.com/file/d/1MKJnoD5vEh7Q1nVnpw1uae7pL_dJdEFe/preview
     "poster": "media/poster-2.jpg",
-    "duration": "7:15"
+    "duration": " "
+  },
+  {
+
+  },
+  {
+    "id": "audio-4",
+    "type": "audio",
+    "title": "post dub",
+    "description": "вдохнолвенное чем-то вроде дабстепа 12х-15- годов. вообще burial и zomby фавориты",
+    "file": "media/postdub.mp3",
+    "duration": " "
+  },
+  {
+    "id": "audio-5",
+    "type": "audio",
+    "title": "альбомы",
+    "description": "микс и мастеринг бэдрум записи, отличный трек",
+    "file": "media/Альбомы.mp3",
+    "duration": " "
+  },
+  {
+    "id": "audio-3",
+    "type": "audio",
+    "title": "Институт Мозга группа - live1",
+    "description": "полный цикл лайв-записи: расстановка микроф, коммутация, запись и сведение",
+    "file": "media/LIVE1.mp3",
+    "duration": " "
+  },
+  {
+    "id": "audio-7",
+    "type": "audio",
+    "title": "catfish - sn",
+    "description": "мастеринг эмбиент релиза",
+    "file": ""media/catfish - sn.mp3"",
+    "duration": " "
+  },
+  {
+    "id": "audio-8",
+    "type": "audio",
+    "title": "2step future",
+    "description": "из короткого релиза вдохновленного тустепом",
+    "file": "media/2stepfuture.mp3",
+    "duration": " "
+  },
+  {
+    "id": "video-3",
+    "type": "gdrive",
+    "title": "почему он?",
+    "description": "практика. полная реконструкция озвучки фильма, запись и обработка голоса + саунд-дизайн",
+    "file": "https://drive.google.com/file/d/1706czsqFPw66tHykF6KbbSgp0PMWIAwA/preview",
+    "poster": "media/Frame 1.jpg",
+    "duration": " "
+  },
+  {
+    "id": "audio-10",
+    "type": "audio",
+    "title": "прош - замок",
+    "description": "cведение и мастеринг курароподобной альтернативы)",
+    "file": "media/прош-замок.mp3",
+    "duration": " "
   },
   {
     "id": "video-3",
