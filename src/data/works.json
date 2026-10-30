@@ -23,7 +23,6 @@
     "file": "https://drive.google.com/file/d/1yyggeZmUaZ96cjWnvEi9cNnlTXqKNSYA/preview",
     "poster": "media/Frame 1.jpg",
     "duration": " "
-
   },
   {
     "id": "video-2",
@@ -73,14 +72,15 @@
     "description": "из короткого релиза вдохновленного тустепом",
     "file": "media/2stepfuture.mp3",
     "duration": " "
- 
+  },
+  {
     "id": "audio-10",
     "type": "audio",
     "title": "прош - замок",
     "description": "cведение и мастеринг курароподобной альтернативы)",
     "file": "media/прош-замок.mp3",
     "duration": " "
- },
+  },
   {
     "id": "video-3",
     "type": "gdrive",
@@ -89,10 +89,5 @@
     "file": "https://drive.google.com/file/d/1706czsqFPw66tHykF6KbbSgp0PMWIAwA/preview",
     "poster": "media/Frame 1.jpg",
     "duration": " "
-  },
-  {
-  },
-  {
   }
 ]
-
