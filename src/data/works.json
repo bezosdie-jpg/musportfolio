@@ -28,7 +28,7 @@
   {
     "id": "video-2",
     "type": "gdrive",
-    "title": "Video Two",
+    "title": "icecream",
     "description": "Дизайн звука с музыкальной подложкой. Синтез своих звуков и работа с библиотеками",
     "file": "https://drive.google.com/file/d/1MKJnoD5vEh7Q1nVnpw1uae7pL_dJdEFe/preview",
     "poster": "media/poster-2.jpg",
@@ -73,7 +73,14 @@
     "description": "из короткого релиза вдохновленного тустепом",
     "file": "media/2stepfuture.mp3",
     "duration": " "
-  },
+ 
+    "id": "audio-10",
+    "type": "audio",
+    "title": "прош - замок",
+    "description": "cведение и мастеринг курароподобной альтернативы)",
+    "file": "media/прош-замок.mp3",
+    "duration": " "
+ },
   {
     "id": "video-3",
     "type": "gdrive",
@@ -84,30 +91,8 @@
     "duration": " "
   },
   {
-    "id": "audio-10",
-    "type": "audio",
-    "title": "прош - замок",
-    "description": "cведение и мастеринг курароподобной альтернативы)",
-    "file": "media/прош-замок.mp3",
-    "duration": " "
   },
   {
-    "id": "video-3",
-    "type": "gdrive",
-    "title": "Video Three",
-    "description": "Видео с Google Drive. Замените ссылку на свою.",
-    "file": "https://drive.google.com/file/d/FILE_ID_3/view",
-    "poster": "media/Frame 1.jpg",
-    "duration": "10:00"
-  },
-  {
-    "id": "video-4",
-    "type": "gdrive",
-    "title": "Video Four",
-    "description": "Видео с Google Drive. Замените ссылку на свою.",
-    "file": "https://drive.google.com/file/d/FILE_ID_4/view",
-    "poster": "media/poster-4.jpg",
-    "duration": "4:45"
   }
 ]
 

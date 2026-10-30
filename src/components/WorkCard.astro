@@ -31,8 +31,13 @@ const { work } = Astro.props;
       <VideoPlayer src={work.file} title={work.title} poster={work.poster} />
     )}
     {work.type === 'gdrive' && work.file && (() => {
+      let embedUrl: string | null = null;
       const match = work.file.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      const embedUrl = match ? `https://drive.google.com/file/d/${match[1]}/preview` : null;
+      if (match) {
+        embedUrl = `https://drive.google.com/file/d/${match[1]}/preview`;
+      } else if (work.file.includes('drive.google.com')) {
+        embedUrl = work.file;
+      }
       return embedUrl ? <VideoPlayer embedUrl={embedUrl} title={work.title} poster={work.poster} /> : null;
     })()}
   </div>
