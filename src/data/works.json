@@ -29,13 +29,10 @@
     "id": "video-2",
     "type": "gdrive",
     "title": "Video Two",
-    "description": "Дизайн звука с музыкальной пождожкой. Синтез своих звуков и работа с библиотеками",
-    "file": "https://drive.google.com/file/d/1MKJnoD5vEh7Q1nVnpw1uae7pL_dJdEFe/preview
+    "description": "Дизайн звука с музыкальной подложкой. Синтез своих звуков и работа с библиотеками",
+    "file": "https://drive.google.com/file/d/1MKJnoD5vEh7Q1nVnpw1uae7pL_dJdEFe/preview",
     "poster": "media/poster-2.jpg",
     "duration": " "
-  },
-  {
-
   },
   {
     "id": "audio-4",
@@ -66,7 +63,7 @@
     "type": "audio",
     "title": "catfish - sn",
     "description": "мастеринг эмбиент релиза",
-    "file": ""media/catfish - sn.mp3"",
+    "file": "media/catfish - sn.mp3",
     "duration": " "
   },
   {
