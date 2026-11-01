@@ -37,7 +37,9 @@ const posterUrl = import.meta.env.PROD && poster && !poster.startsWith('http')
       <video
         id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
         src={src}
-        poster={poster}
+        poster={import.meta.env.PROD && poster && !poster.startsWith('http')
+          ? `/musportfolio/${poster.replace(/^\//, '')}`
+          : poster}
         preload="metadata"
         aria-label={title}
       ></video>
