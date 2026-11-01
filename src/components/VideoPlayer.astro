@@ -94,8 +94,28 @@ const videoSrc = embedUrl || src;
     inset: 0;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     z-index: 2;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-poster::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 64px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/60% no-repeat;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/60% no-repeat;
+    opacity: 0.9;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .video-poster:hover::before {
+    transform: scale(1.1);
+    background: #fff;
   }
   .video-player iframe {
     border: none;
