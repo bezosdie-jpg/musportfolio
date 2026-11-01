@@ -38,7 +38,7 @@ const { work } = Astro.props;
       } else if (work.file.includes('drive.google.com')) {
         embedUrl = work.file;
       }
-      return embedUrl ? <VideoPlayer embedUrl={embedUrl} title={work.title} poster={work.poster} /> : null;
+      return embedUrl ? <VideoPlayer src={work.file} embedUrl={embedUrl} title={work.title} poster={work.poster} /> : null;
     })()}
   </div>
 </article>
