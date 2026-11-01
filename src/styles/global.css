@@ -124,11 +124,12 @@ button {
 /* Works Grid */
 .works-grid {
   display: grid;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   grid-template-columns: repeat(2, 1fr);
 }
 @media (min-width: 768px) {
   .works-grid {
+    gap: var(--spacing-lg);
     grid-template-columns: repeat(2, 1fr);
   }
 }
