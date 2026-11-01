@@ -80,6 +80,12 @@ button {
   padding: var(--spacing-xl) var(--spacing-md);
   width: 100%;
 }
+@media (max-width: 600px) {
+  .main {
+    max-width: 100%;
+    padding: var(--spacing-lg) var(--spacing-xs);
+  }
+}
 @media (min-width: 768px) {
   .main { padding: var(--spacing-2xl) var(--spacing-lg); }
 }
@@ -121,14 +127,12 @@ button {
 }
 @media (max-width: 600px) {
   .section-title { font-size: 1.25rem; }
-  .work-card { padding: 0.75rem; }
-  .work-title { font-size: 1rem; }
 }
 
 /* Works Grid */
 .works-grid {
   display: grid;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   grid-template-columns: repeat(2, 1fr);
 }
 @media (min-width: 768px) {
@@ -148,6 +152,8 @@ button {
   background: rgba(0, 0, 0, 0.3);
   padding: var(--spacing-lg);
   border-radius: var(--radius-lg);
+  width: 100%;
+  box-sizing: border-box;
 }
 .about-content p {
   margin-bottom: var(--spacing-md);
