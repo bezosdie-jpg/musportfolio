@@ -8,13 +8,19 @@ interface Props {
 const { src, title, poster, embedUrl } = Astro.props;
 const isEmbed = !!embedUrl;
 const videoSrc = embedUrl || src;
+
+// Для постера в production (GitHub Pages) нужен base path /musportfolio/
+// Astro не добавляет base к inline styles, делаем вручную как в AudioPlayer
+const posterUrl = import.meta.env.PROD && poster && !poster.startsWith('http')
+  ? `/musportfolio/${poster.replace(/^\//, '')}`
+  : poster;
 ---
 
 <div class="video-player" data-src={videoSrc} data-title={title}>
   {isEmbed ? (
     <>
       {poster && (
-        <div class="video-poster" style={{ backgroundImage: `url(${poster})` }} aria-hidden="true" data-poster="true"></div>
+        <div class="video-poster" style={{ backgroundImage: `url(${posterUrl})` }} aria-hidden="true" data-poster="true"></div>
       )}
       <iframe
         id={`video-${title.replace(/\s+/g, '-').toLowerCase()}`}
@@ -306,8 +312,7 @@ const videoSrc = embedUrl || src;
           if (started) return;
           started = true;
           poster.style.display = 'none';
-          const finalSrc = dataSrc.includes('?') ? `${dataSrc}&autoplay=1` : `${dataSrc}?autoplay=1`;
-          iframe.src = finalSrc;
+          iframe.src = dataSrc;
         });
       }
 
