@@ -431,9 +431,12 @@ const posterUrl = import.meta.env.PROD && poster && !poster.startsWith('http')
 
       video.addEventListener('volumechange', updateVolumeUI);
 
-      poster?.addEventListener('click', () => {
-        video.play();
-      });
+      // Постер клик для локального видео — запускает воспроизведение
+      if (video && poster) {
+        poster.addEventListener('click', () => {
+          video.play();
+        });
+      }
       video.addEventListener('play', () => {
         if (poster) poster.style.display = 'none';
       });
