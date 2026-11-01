@@ -19,12 +19,14 @@
     padding: 1rem 0;
   }
   .header-nav {
-    max-width: 960px;
+    max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
   }
   .logo {
     font-size: 1.25rem;
@@ -49,7 +51,7 @@
   .nav-links a:hover { color: #000; }
   .nav-links a:focus-visible { outline: 2px solid #000; outline-offset: 4px; border-radius: 4px; }
   @media (max-width: 600px) {
-    .header-nav { padding: 0 1rem; }
+    .header-nav { padding: 0 0.75rem; }
     .nav-links { gap: 1.25rem; }
   }
 </style>
