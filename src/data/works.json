@@ -17,19 +17,19 @@
   },
   {
     "id": "video-1",
-    "type": "gdrive",
+    "type": "video",
     "title": "тачки",
     "description": "озвучка видео с Пинтереста. без изначального референса. написание музыки с инструментом(гитара)), работа с библиотеками, и синтезом собственных звуков..",
-    "file": "https://drive.google.com/file/d/1yyggeZmUaZ96cjWnvEi9cNnlTXqKNSYA/preview",
+    "file": "media/video1.mp4",
     "poster": "/media/Video1.jpg",
     "duration": " "
   },
   {
     "id": "video-2",
-    "type": "gdrive",
+    "type": "video",
     "title": "icecream",
     "description": "Дизайн звука с музыкальной подложкой. синтез своих звуков и работа с библиотеками",
-    "file": "https://drive.google.com/file/d/1MKJnoD5vEh7Q1nVnpw1uae7pL_dJdEFe/preview",
+    "file": "media/video2.mp4",
     "poster": "/media/Video2.jpg",
     "duration": " "
   },
@@ -83,10 +83,10 @@
   },
   {
     "id": "video-3",
-    "type": "gdrive",
+    "type": "video",
     "title": "почему он?",
     "description": "практика. полная реконструкция озвучки фильма, запись и обработка голоса + саунд-дизайн",
-    "file": "https://drive.google.com/file/d/1706czsqFPw66tHykF6KbbSgp0PMWIAwA/preview",
+    "file": "media/video3.mp4",
     "poster": "/media/Video3.jpg",
     "duration": " "
   }
