@@ -21,7 +21,7 @@
     "title": "тачки",
     "description": "озвучка видео с Пинтереста. без изначального референса. написание музыки с инструментом(гитара)), работа с библиотеками, и синтезом собственных звуков..",
     "file": "media/video1.mp4",
-    "poster": "/media/Video1.jpg",
+    "poster": "/media/video1.jpg",
     "duration": " "
   },
   {
@@ -30,7 +30,7 @@
     "title": "icecream",
     "description": "Дизайн звука с музыкальной подложкой. синтез своих звуков и работа с библиотеками",
     "file": "media/video2.mp4",
-    "poster": "/media/Video2.jpg",
+    "poster": "/media/video2.jpg",
     "duration": " "
   },
   {
@@ -87,7 +87,7 @@
     "title": "почему он?",
     "description": "практика. полная реконструкция озвучки фильма, запись и обработка голоса + саунд-дизайн",
     "file": "media/video3.mp4",
-    "poster": "/media/Video3.jpg",
+    "poster": "/media/video3.jpg",
     "duration": " "
   }
 ]
